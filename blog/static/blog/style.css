@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 100px;
+    background-color: #f2f2f2;
+  }
+  
+  #box {
+    width: 300px;
+    height: 200px;
+    background-color: #3498db;
+    color: white;
+    line-height: 200px;
+    margin: 0 auto;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer;
+  }
+  
+  #box.hover {
+    background-color: #2ecc71;
+    transform: scale(1.05);
+  }
+  
+  #box.active {
+    background-color: #e74c3c;
+  }
+  

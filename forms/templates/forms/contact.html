@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us</title>
+    <style>
+        /* 🌈 Page background */
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #74ABE2, #5563DE);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* 📦 Form box styling */
+        .form-container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Django form fields */
+        form p {
+            margin-bottom: 15px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #5563DE;
+            box-shadow: 0 0 5px rgba(85, 99, 222, 0.4);
+            outline: none;
+        }
+
+        /* Submit button */
+        button {
+            width: 100%;
+            background-color: #5563DE;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #4051c6;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            margin-top: 15px;
+            color: green;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Error Message */
+        .error-message {
+            color: red;
+            font-size: 13px;
+            display: none;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Contact Form</h1>
+        <form method="POST" id="contactForm">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Send</button>
+            <p class="success-message" id="successMsg">✅ Your message was sent successfully!</p>
+        </form>
+    </div>
+
+    <script>
+        // ⚡ Basic JS for client-side form validation and confirmation
+        const form = document.getElementById('contactForm');
+        const successMsg = document.getElementById('successMsg');
+
+        form.addEventListener('submit', function (e) {
+            // Allow Django to handle the POST normally
+            // But also show quick feedback
+            const inputs = form.querySelectorAll('input[required], textarea[required]');
+            let allFilled = true;
+
+            inputs.forEach(input => {
+                if (input.value.trim() === '') {
+                    allFilled = false;
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = '#ccc';
+                }
+            });
+
+            if (!allFilled) {
+                e.preventDefault(); // stop Django submission if empty fields
+                alert('⚠️ Please fill in all required fields!');
+                return;
+            }
+
+            // Temporary visual feedback
+            successMsg.style.display = 'block';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

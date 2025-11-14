@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <style>
+        /* 🌈 Page background */
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            background: linear-gradient(135deg, #74ABE2, #5563DE);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* 📦 Message box styling */
+        .message-container {
+            background-color: white;
+            padding: 40px 50px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            animation: fadeInScale 0.6s ease-in-out;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h2 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        /* 🎉 Confetti / check mark animation */
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 4px solid #5563DE;
+            position: relative;
+            margin-bottom: 20px;
+            animation: popIn 0.5s ease-out;
+        }
+
+        .checkmark::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 35px;
+            width: 15px;
+            height: 30px;
+            border-right: 4px solid #5563DE;
+            border-bottom: 4px solid #5563DE;
+            transform: rotate(45deg);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 25px;
+            font-size: 16px;
+            background-color: #5563DE;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #4051c6;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+<body>
+    <div class="message-container">
+        <div class="checkmark"></div>
+        <h2>Thank you, {{ name }}! Your message has been received.</h2>
+        <button onclick="goBack()">Go Back</button>
+    </div>
+
+    <script>
+        // 🔄 Back button functionality
+        function goBack() {
+            window.history.back();
+        }
+
+        // Optional: fade out after 5 seconds
+        setTimeout(() => {
+            const container = document.querySelector('.message-container');
+            container.style.transition = 'opacity 1s ease-out';
+            container.style.opacity = 0;
+        }, 5000);
+    </script>
+</body>
+</html>
